@@ -29,7 +29,7 @@ function playRound(humanChoice, computerChoice) {
         console.log("You lose! Scissors beats Paper");
         computerScore++;
     }
-    if (computerChoice == "rock" && humanChoice == "paper") {
+    else if (computerChoice == "rock" && humanChoice == "paper") {
         console.log("You win! Paper beats Rock");
         humanScore++;
     }
