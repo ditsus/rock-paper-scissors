@@ -11,18 +11,19 @@ function getComputerChoice() {
     }
 }
 
-// function getHumanChoice() {
-//     return (prompt("Enter either rock, paper, or scissors", ""));   
-// }
-
 
 //Event delegation
+let humanScore = 0, computerScore = 0;
 let choiceButtons = document.querySelector("#choiceButtons");
+let results = document.querySelector("#results");
+results.style.textAlign = "center";
+
 
 choiceButtons.addEventListener("click", (event) => {
    let target = event.target;
    
-   switch(target.id) {
+   if (humanScore < 5 && computerScore < 5) {
+    switch(target.id) {
         case "rock":
             playRound("rock", getComputerChoice());
             break;
@@ -33,9 +34,8 @@ choiceButtons.addEventListener("click", (event) => {
             playRound("scissors", getComputerChoice());
             break;
    }
+   }
 });
-
-let results = document.querySelector("#results");
 
 function playRound(humanChoice, computerChoice) {
     humanChoice = humanChoice.toLowerCase();
@@ -68,31 +68,47 @@ function playRound(humanChoice, computerChoice) {
     }
 
     if (humanScore === 5) {
-        results.textContent = `You beat the super complex ai! YOU: ${humanScore} - AI: ${computerScore}`;
-        choiceButtons.idList.remove("#choiceButtons");
+        const final = document.createElement("p");
+        const gameSection = document.querySelector("#gameSection");
+        gameSection.appendChild(final);
+        final.style.textAlign = "center";
+        final.textContent = `You beat the super complex ai!`;
+
+        const restart = document.createElement("button");
+        restart.textContent = `Restart`;
+        restart.style.padding = "5px 10px";
+        restart.style.borderRadius = "10px";
+        document.querySelector("#gameSection").appendChild(restart);
+
+        restart.addEventListener("click", (event) => {
+            computerScore = 0;
+            humanScore = 0;
+            gameSection.removeChild(final);
+            gameSection.removeChild(restart);
+            results.textContent = "PRESS ONE TO START";
+        });
     }
     else if (computerScore === 5) {
-        results.textContent = `You lost to the super complex ai! YOU: ${humanScore} - AI: ${computerScore}`;
-        choiceButtons.idList.remove("#choiceButtons");
+        const final = document.createElement("p");
+        const gameSection = document.querySelector("#gameSection");
+        gameSection.appendChild(final);
+        final.style.textAlign = "center";
+        final.textContent = `You lost to the super complex ai!`;
+
+        const restart = document.createElement("button");
+        restart.textContent = `Restart`;
+        restart.style.padding = "5px 10px";
+        restart.style.borderRadius = "10px";
+        document.querySelector("#gameSection").appendChild(restart);
+
+        restart.addEventListener("click", (event) => {
+            computerScore = 0;
+            humanScore = 0;
+            gameSection.removeChild(final);
+            gameSection.removeChild(restart);
+            results.textContent = "PRESS ONE TO START";
+        });
     }
 }
 
-// function playGame() {
-//     // for (let i = 0; i < 5; i++) {
-//         const humanSelection = getHumanChoice();
-//         const computerSelection = getComputerChoice();
-//         playRound(humanSelection, computerSelection);
-//     // }
-//     if (humanScore > computerScore) {
-//         console.log(`You beat the super complex ai! ${humanScore} - ${computerScore}`);
-//     }
-//     else if (computerScore > humanScore) {
-//         console.log(`You lost to the super complex ai! ${humanScore} - ${computerScore}`);
-//     }
-//     else {
-//         console.log(`You somehow tied with the super complex ai! ${humanScore} - ${computerScore}`);
-//     }
-// }
 
-let humanScore = 0, computerScore = 0;
-// playGame();
